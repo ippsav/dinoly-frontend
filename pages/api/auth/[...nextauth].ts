@@ -77,5 +77,7 @@ export default NextAuth({
       }
       return token;
     }
-  }
+  },
+  secret: process.env.SECRET || "long_strong_secret",
 })
+
