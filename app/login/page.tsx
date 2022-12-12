@@ -1,10 +1,13 @@
 "use client";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { LoginUserInput } from "../../lib/api";
 
 
 export default function LoginPage() {
 
+  const router = useRouter();
   const defaultState: LoginUserInput = {
     username: "",
     password: ""
@@ -19,6 +22,16 @@ export default function LoginPage() {
 
   const handleOnSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+
+    const response = await signIn("login", {
+      username: userInput.username,
+      password: userInput.password,
+      redirect: false
+    })
+    if (!response?.error) {
+      router.push("/");
+    }
   }
 
   return (

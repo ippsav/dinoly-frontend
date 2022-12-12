@@ -65,6 +65,7 @@ export default NextAuth({
         email: token.email || "",
         sub: token.sub || "",
       };
+      session.token = token.accessToken as string || "";
       return session;
     },
     async jwt({ user, token }) {

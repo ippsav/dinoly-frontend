@@ -2,6 +2,8 @@
 
 import { ChangeEvent, FormEvent, useState } from "react";
 import { RegisterUserInput } from "../../lib/api";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 
 
@@ -10,6 +12,7 @@ import { RegisterUserInput } from "../../lib/api";
 
 
 export default function RegisterPage() {
+  const router = useRouter();
   const defaultState: RegisterUserInput = {
     username: "",
     email: "",
@@ -25,6 +28,16 @@ export default function RegisterPage() {
 
   const handleOnSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+
+    const response = await signIn("signup", {
+      username: userInput.username,
+      email: userInput.email,
+      password: userInput.password,
+      redirect: false
+    })
+    console.log(response);
+    router.push("/");
   }
 
 

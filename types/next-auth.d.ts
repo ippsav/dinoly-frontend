@@ -8,6 +8,7 @@ declare module "next-auth" {
    */
   interface Session {
     user: Profile
+    token: string
   }
 
   interface User {
