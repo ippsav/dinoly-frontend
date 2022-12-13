@@ -21,7 +21,7 @@ export default NextAuth({
       async authorize(credentials) {
         let res = await Api.signIn(credentials as Api.LoginUserInput);
         if (res.error) {
-          throw new Error(res.error);
+          throw new Error(res.error.message);
         }
         let { data: { user }, error } = await Api.me(res.data.token);
         if (error) {
@@ -69,8 +69,6 @@ export default NextAuth({
       return session;
     },
     async jwt({ user, token }) {
-      console.log("jwt");
-      console.log(token);
       if (user && user.token != null) {
         token.name = user.username;
         token.accessToken = user.token;

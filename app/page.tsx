@@ -2,13 +2,11 @@
 
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { API_URL } from "../lib/api";
 
 
 
 export default function MainPage() {
   const { data, status } = useSession();
-  console.log(API_URL);
   if (status === "unauthenticated") {
     return <Home />
   } else if (data) {
